@@ -1,7 +1,11 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
 import Unsplash, {toJson} from 'unsplash-js';
-
+import './Searcher.css';
+import {
+    BrowserRouter as Router,
+    Redirect
+  } from "react-router-dom";
 const unsplash = new Unsplash({
     accessKey:'UE8mvlx_kxyz0FC7DWfOD9lJTdT6qUdG0PicnuM_rqc',
 })
@@ -49,6 +53,157 @@ margin: 0;
 }
 `;
 
+const CSS_COLOR_NAMES = [
+    "AliceBlue",
+    "AntiqueWhite",
+    "Aqua",
+    "Aquamarine",
+    "Azure",
+    "Beige",
+    "Bisque",
+    "Black",
+    "BlanchedAlmond",
+    "Blue",
+    "BlueViolet",
+    "Brown",
+    "BurlyWood",
+    "CadetBlue",
+    "Chartreuse",
+    "Chocolate",
+    "Coral",
+    "CornflowerBlue",
+    "Cornsilk",
+    "Crimson",
+    "Cyan",
+    "DarkBlue",
+    "DarkCyan",
+    "DarkGoldenRod",
+    "DarkGray",
+    "DarkGrey",
+    "DarkGreen",
+    "DarkKhaki",
+    "DarkMagenta",
+    "DarkOliveGreen",
+    "DarkOrange",
+    "DarkOrchid",
+    "DarkRed",
+    "DarkSalmon",
+    "DarkSeaGreen",
+    "DarkSlateBlue",
+    "DarkSlateGray",
+    "DarkSlateGrey",
+    "DarkTurquoise",
+    "DarkViolet",
+    "DeepPink",
+    "DeepSkyBlue",
+    "DimGray",
+    "DimGrey",
+    "DodgerBlue",
+    "FireBrick",
+    "FloralWhite",
+    "ForestGreen",
+    "Fuchsia",
+    "Gainsboro",
+    "GhostWhite",
+    "Gold",
+    "GoldenRod",
+    "Gray",
+    "Grey",
+    "Green",
+    "GreenYellow",
+    "HoneyDew",
+    "HotPink",
+    "IndianRed",
+    "Indigo",
+    "Ivory",
+    "Khaki",
+    "Lavender",
+    "LavenderBlush",
+    "LawnGreen",
+    "LemonChiffon",
+    "LightBlue",
+    "LightCoral",
+    "LightCyan",
+    "LightGoldenRodYellow",
+    "LightGray",
+    "LightGrey",
+    "LightGreen",
+    "LightPink",
+    "LightSalmon",
+    "LightSeaGreen",
+    "LightSkyBlue",
+    "LightSlateGray",
+    "LightSlateGrey",
+    "LightSteelBlue",
+    "LightYellow",
+    "Lime",
+    "LimeGreen",
+    "Linen",
+    "Magenta",
+    "Maroon",
+    "MediumAquaMarine",
+    "MediumBlue",
+    "MediumOrchid",
+    "MediumPurple",
+    "MediumSeaGreen",
+    "MediumSlateBlue",
+    "MediumSpringGreen",
+    "MediumTurquoise",
+    "MediumVioletRed",
+    "MidnightBlue",
+    "MintCream",
+    "MistyRose",
+    "Moccasin",
+    "NavajoWhite",
+    "Navy",
+    "OldLace",
+    "Olive",
+    "OliveDrab",
+    "Orange",
+    "OrangeRed",
+    "Orchid",
+    "PaleGoldenRod",
+    "PaleGreen",
+    "PaleTurquoise",
+    "PaleVioletRed",
+    "PapayaWhip",
+    "PeachPuff",
+    "Peru",
+    "Pink",
+    "Plum",
+    "PowderBlue",
+    "Purple",
+    "RebeccaPurple",
+    "Red",
+    "RosyBrown",
+    "RoyalBlue",
+    "SaddleBrown",
+    "Salmon",
+    "SandyBrown",
+    "SeaGreen",
+    "SeaShell",
+    "Sienna",
+    "Silver",
+    "SkyBlue",
+    "SlateBlue",
+    "SlateGray",
+    "SlateGrey",
+    "Snow",
+    "SpringGreen",
+    "SteelBlue",
+    "Tan",
+    "Teal",
+    "Thistle",
+    "Tomato",
+    "Turquoise",
+    "Violet",
+    "Wheat",
+    "White",
+    "WhiteSmoke",
+    "Yellow",
+    "YellowGreen",
+  ];
+
 class Searcher extends Component {
     constructor(props) {
         super(props);
@@ -57,12 +212,15 @@ class Searcher extends Component {
             results: [],
             suggestions: [],
             fieldempty: true
-        }
+        };
+
+        this.searchPhoto = this.searchPhoto.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
     }
 
+
     searchPhoto = async (e) => {
-        
-        if(e) {
+        if(e){
             e.preventDefault();
         }
         
@@ -70,17 +228,14 @@ class Searcher extends Component {
         .photos(this.state.value)
         .then(toJson)
         .then((JSON) => {
-            console.log(JSON.results)
             this.setState({results: JSON.results})
-            this.props.searchStatus(true) 
-            this.setData();
-            this.updateValue(); 
+            this.props.updateStatus(true)
+            this.props.updateData(JSON.results)
+            console.log("udało sie")
             this.setState({fieldempty: true})
         })
-    }
-
-    setData = () => {
-        this.props.updateData(this.state.results)
+        .catch(error => console.log(error));
+ 
     }
 
     updateValue = () => {
@@ -91,8 +246,8 @@ class Searcher extends Component {
         let query = e.target.dataset.query;
         console.log(query);
         this.setState({value: query});
-        this.props.updateValue(query);
         this.searchPhoto();
+        this.setState({fieldempty: true})
     }
 
     getPhoto = () => {
@@ -100,10 +255,9 @@ class Searcher extends Component {
         .photos(this.state.value)
         .then(toJson)
         .then((JSON) => {
-
             this.setState({results: JSON.results})
             this.updateValue(); 
-            let tags = JSON.results.map((res) => {
+            JSON.results.map((res) => {
                 res.tags.map((tag) => {
                     
                     this.setState(prevState => {
@@ -118,13 +272,19 @@ class Searcher extends Component {
         })
     }
 
+    handleInputChange = () => {
+            this.setState({
+                value: this.search.value
+            })
+    }          
+
     getCollections = () => {
         unsplash.search
         .collections(this.state.value)
         .then(toJson)
         .then((JSON) => {
 
-            let colTags = JSON.results.map((res) => {
+            JSON.results.map((res) => {
                 res.tags.map((tag) => {
                     
                     this.setState(prevState => {
@@ -159,7 +319,7 @@ class Searcher extends Component {
             });
 
             let newSuggestionList = suggestionList.filter((item, pos) => {
-                return suggestionList.indexOf(item) == pos;
+                return suggestionList.indexOf(item) === pos;
             })
             
                 return({
@@ -170,7 +330,7 @@ class Searcher extends Component {
 
     setSuggestions = () => {
         
-        if(this.search.value === "" && this.state.suggestions.length == 0) {
+        if(this.search.value === "" && this.state.suggestions.length === 0) {
             this.setState({fieldempty: true})
 
         } else if(this.search.value === "" && this.state.suggestions.length !== 0) {
@@ -215,6 +375,28 @@ class Searcher extends Component {
                     </SuggList>}
 
                 </Form>
+
+                <div className="box">
+                    <div className="sugg">
+                            Purple
+                    </div>
+                    <div className="sugg">
+                            Yellow
+                    </div>
+                    <div className="sugg">
+                            Green
+                    </div>
+                    <div className="sugg">
+                            Red
+                    </div>
+                </div>
+
+                {this.props.searchStatus &&
+                    <Redirect to={{
+                        pathname: '/results',
+                        state: { results: this.state.results }
+                    }}/>
+                }
             </>
         )
     }

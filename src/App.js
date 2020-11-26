@@ -1,5 +1,5 @@
 import React from 'react';
-import SearcherApp from './SearcherApp';
+import SearcherApp from './components/SearcherApp';
 import './App.css';
 
 

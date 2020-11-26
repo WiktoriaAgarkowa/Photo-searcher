@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import './App.css';
 
 const Container = styled.div`
-column-count: 3;
+display: grid;
+grid-column-gap: 24px;
+grid-template-columns: repeat(3, auto);
 width: 70%;
 margin: auto;
 position: relative;
@@ -20,10 +22,11 @@ display: flex;
 
 const Image = styled.img`
 flex: 100%;
+object-fit: cover;
+width: 100%;
 margin-top: 1rem;
 border-radius: 10px;
-width: 50%;
-height: 50%;
+
 `;
 
 const Popup = styled.div`
@@ -75,6 +78,13 @@ font-size: 20px;
 text-align: center;
 `;
 
+const ContainerSearcher = styled.div`
+width: 70%;
+margin: auto;
+height: 200px;
+padding-top: 20px;
+`;
+
 
 const Results = (props) => {
 
@@ -84,7 +94,10 @@ const Results = (props) => {
     const [location, setLocation] = useState('');
     const [avatar, setAvatar] = useState('');
 
-
+    useEffect(()=>{
+        console.log(props.allData)
+    })
+    
     function openWindow(pic) {
 
         setClick(state => ({
@@ -103,6 +116,9 @@ const Results = (props) => {
 
     return(
         <>
+            <ContainerSearcher>
+                   
+            </ContainerSearcher>
                 
             <Container >
                 
@@ -113,15 +129,17 @@ const Results = (props) => {
                         <Image key={pic.id} 
                         src={pic.urls.full} 
                         onClick={(pic)=> openWindow(pic)} 
-                        data-userName={pic.user.first_name} 
+                        data-username={pic.user.first_name} 
                         data-location={pic.user.location} 
                         data-avatar={pic.user.profile_image.medium}>
                         </Image>
 
                     </Item>
+                    
                 ))}
 
-                {props.allData.length == 0 && props.searchState && 
+
+                {props.allData.length === 0 && props.searchState && 
                     <NoRes>No results :(</NoRes>
                 }
 
