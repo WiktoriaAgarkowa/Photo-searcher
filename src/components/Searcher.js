@@ -278,26 +278,26 @@ class Searcher extends Component {
             })
     }          
 
-    getCollections = () => {
-        unsplash.search
-        .collections(this.state.value)
-        .then(toJson)
-        .then((JSON) => {
+    // getCollections = () => {
+    //     unsplash.search
+    //     .collections(this.state.value)
+    //     .then(toJson)
+    //     .then((JSON) => {
 
-            JSON.results.map((res) => {
-                res.tags.map((tag) => {
+    //         JSON.results.map((res) => {
+    //             res.tags.map((tag) => {
                     
-                    this.setState(prevState => {
-                        return ({
-                            suggestions: prevState.suggestions.concat(tag.title) 
-                        })
-                    })
-                })
-            }); 
+    //                 this.setState(prevState => {
+    //                     return ({
+    //                         suggestions: prevState.suggestions.concat(tag.title) 
+    //                     })
+    //                 })
+    //             })
+    //         }); 
 
-            this.filtrSuggestions();
-        })
-    }
+    //         this.filtrSuggestions();
+    //     })
+    // }
 
     handleInputChange = () => {
         this.setSuggestions();
@@ -306,7 +306,7 @@ class Searcher extends Component {
           }, () => {
               if (this.state.value && this.state.value.length >= 3) {
                   this.getPhoto();
-                  this.getCollections();
+                //   this.getCollections();
               } else if (!this.state.value) return
           })
     }
@@ -345,18 +345,32 @@ class Searcher extends Component {
         }
     }
 
+    clickTag = (e) => {
+        let tag = e.target.dataset.name;
+        this.setState({value: tag});
+        this.searchPhoto();
+        this.setState({fieldempty: true})
+    }
+
 
 
     render() {
         let sugg = this.state.suggestions.length;
         let empty = this.state.fieldempty;
+        let suggArray = this.state.suggestions
+
+
+        // for(i=0; i<4; i++) {
+        //     console.log(suggArray[i])
+        // }
+
         return (
             <>
                 <Form onSubmit={this.searchPhoto}>
 
                     <Field 
                     type='text' 
-                    defaultValue={this.props.inputValue} 
+                    defaultValue={this.state.value} 
                     ref={input => this.search = input}
                     onChange={this.handleInputChange}
                     placeholder='Search free high-resolution photos'></Field>
@@ -377,10 +391,10 @@ class Searcher extends Component {
                 </Form>
 
                 <div className="box">
-                    <div className="sugg">
+                    <div className="sugg" data-name="purple" onClick={this.clickTag}>
                             Purple
                     </div>
-                    <div className="sugg">
+                    <div className="sugg" data-name="yellow" onClick={this.clickTag}>
                             Yellow
                     </div>
                     <div className="sugg">

@@ -74,13 +74,15 @@ class SearcherApp extends Component {
         return (
             <Router>
                 <div>
-                    <div className="decor"></div>
+                    <div className="container">
+                    <div className="decor one"></div>
+                    <div className="decor two"></div>
+                    </div>
                     <Link className="logo" onClick={() => {this.setStatus(false)}} to='/'>Inspirator |</Link>
                     <>
                         <div className = {searcher}>
                             <Heading className={className}>Photo Searcher</Heading>
-                            <Text className={className}>The internet’s source of freely-usable images.
-                                Powered by creators everywhere.
+                            <Text className={className}>Project made with Unsplash API
                             </Text>
                             <Searcher
                             updateData={this.setData}

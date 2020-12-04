@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
-import './App.css';
+
 
 const Container = styled.div`
 display: grid;
@@ -138,11 +138,6 @@ const Results = (props) => {
                     
                 ))}
 
-
-                {props.allData.length === 0 && props.searchState && 
-                    <NoRes>No results :(</NoRes>
-                }
-
                 {click && <Popup>
 
                         <ContainerFlex>
@@ -157,6 +152,11 @@ const Results = (props) => {
 
                 </Popup>}
             </Container>
+
+            {props.allData.length === 0 && props.searchState && 
+                    <NoRes>No results :(</NoRes>
+                }
+
 
         </>
     )
