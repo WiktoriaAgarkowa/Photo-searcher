@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import Unsplash, {toJson} from 'unsplash-js';
-import styled from 'styled-components';
 import Results from './Results';
 import Searcher from './Searcher';
 import './SearcherApp.css';
@@ -11,11 +9,6 @@ import {
     Link
   } from "react-router-dom";
 
-
-
-const unsplash = new Unsplash({
-    accessKey:'UE8mvlx_kxyz0FC7DWfOD9lJTdT6qUdG0PicnuM_rqc',
-})
 
 
 class SearcherApp extends Component {
@@ -66,7 +59,7 @@ class SearcherApp extends Component {
                 <>
                      <div className = {searcher}>
                             <h1 className={className}>Photo Searcher</h1>
-                            <p className={className, 'text'}>Project made with Unsplash API
+                            <p className={className} style={{fontSize: "15px"}}>Project made with Unsplash API
                             </p>
                             <Searcher
                             updateData={this.setData}
