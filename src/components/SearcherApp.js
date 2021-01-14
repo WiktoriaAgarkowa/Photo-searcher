@@ -37,6 +37,7 @@ class SearcherApp extends Component {
             query: '',
             result: [],
             search: false,
+            tagValue: '',
             referrer: null,
         }
     }
@@ -77,10 +78,10 @@ class SearcherApp extends Component {
                     <div className="container">
                     <div className="decor one"></div>
                     <div className="decor two"></div>
-                    </div>
-                    <Link className="logo" onClick={() => {this.setStatus(false)}} to='/'>Inspirator |</Link>
-                    <>
-                        <div className = {searcher}>
+                </div>
+                <Link className="logo" onClick={() => {this.setStatus(false)}} to='/'>Inspirator |</Link>
+                <>
+                     <div className = {searcher}>
                             <Heading className={className}>Photo Searcher</Heading>
                             <Text className={className}>Project made with Unsplash API
                             </Text>
@@ -89,8 +90,8 @@ class SearcherApp extends Component {
                             updateValue={this.setQuery}
                             updateStatus = {this.setStatus}
                             searchStatus = {this.state.search}/>
-                        </div>
-                    </>
+                     </div>
+                 </>
 
                 </div>
 

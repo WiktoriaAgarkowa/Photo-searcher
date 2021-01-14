@@ -93,6 +93,7 @@ const Results = (props) => {
     const [user, setUser] = useState('');
     const [location, setLocation] = useState('');
     const [avatar, setAvatar] = useState('');
+    const [link, setLink] = useState('');
 
     useEffect(()=>{
         console.log(props.allData)
@@ -108,6 +109,7 @@ const Results = (props) => {
         setUser(`@${data.username}`);
         setLocation(data.location);
         setAvatar(data.avatar);
+        setLink(data.link)
     }
 
     function closeWindow() {
@@ -131,7 +133,8 @@ const Results = (props) => {
                         onClick={(pic)=> openWindow(pic)} 
                         data-username={pic.user.first_name} 
                         data-location={pic.user.location} 
-                        data-avatar={pic.user.profile_image.medium}>
+                        data-avatar={pic.user.profile_image.medium}
+                        data-link={pic.links.download}>
                         </Image>
 
                     </Item>
@@ -148,6 +151,7 @@ const Results = (props) => {
                          <ImageFull src={popup}></ImageFull> 
                          <Location>
                             <p>{location}</p>
+                            <a download='' href={link} target='_blank'>Download</a>
                          </Location>
 
                 </Popup>}

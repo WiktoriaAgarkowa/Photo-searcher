@@ -6,6 +6,7 @@
 
 .sugg {
     background-color: #D7E3FC;
+    border: none;
     padding: 15px 40px;
     border-radius: 20px;
     transition: all .35s;;
@@ -14,4 +15,8 @@
 .sugg:hover {
     background-color: #CCDBFD;
     cursor: pointer;
+}
+
+.sugg:focus {
+    outline: none;;
 }

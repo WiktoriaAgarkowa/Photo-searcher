@@ -81,7 +81,7 @@ class Searcher extends Component {
             this.setState({results: JSON.results})
             this.props.updateStatus(true)
             this.props.updateData(JSON.results)
-            console.log("udało sie")
+            console.log(JSON.results)
             this.setState({fieldempty: true})
         })
         .catch(error => console.log(error));
@@ -174,11 +174,15 @@ class Searcher extends Component {
         }
     }
 
+
     clickTag = (e) => {
-        let tag = e.target.dataset.name;
+        let tag = e.target.innerText;
         this.setState({value: tag});
+
         this.searchPhoto();
         this.setState({fieldempty: true})
+
+        console.log(e)
     }
 
 
@@ -186,12 +190,6 @@ class Searcher extends Component {
     render() {
         let sugg = this.state.suggestions.length;
         let empty = this.state.fieldempty;
-        let suggArray = this.state.suggestions
-
-
-        // for(i=0; i<4; i++) {
-        //     console.log(suggArray[i])
-        // }
 
         return (
             <>
@@ -220,18 +218,18 @@ class Searcher extends Component {
                 </Form>
 
                 <div className="box">
-                    <div className="sugg" data-name="purple" onClick={this.clickTag}>
+                    <button className="sugg" data-name="purple" onClick={this.clickTag}>
                             Purple
-                    </div>
-                    <div className="sugg" data-name="yellow" onClick={this.clickTag}>
+                    </button>
+                    <button className="sugg" data-name="yellow" onClick={this.clickTag}>
                             Yellow
-                    </div>
-                    <div className="sugg">
+                    </button>
+                    <button className="sugg" onClick={this.clickTag}>
                             Green
-                    </div>
-                    <div className="sugg">
+                    </button>
+                    <button className="sugg" onClick={this.clickTag}>
                             Red
-                    </div>
+                    </button>
                 </div>
 
                 {this.props.searchStatus &&
