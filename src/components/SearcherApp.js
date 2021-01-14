@@ -5,7 +5,7 @@ import Results from './Results';
 import Searcher from './Searcher';
 import './SearcherApp.css';
 import {
-    BrowserRouter as Router,
+    HashRouter as Router,
     Switch,
     Route,
     Link
