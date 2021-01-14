@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import styled from 'styled-components';
 import Unsplash, {toJson} from 'unsplash-js';
 import './Searcher.css';
+import Tags from './Tags';
 import {
     HashRouter as Router,
     Redirect
@@ -88,10 +89,6 @@ class Searcher extends Component {
  
     }
 
-    updateValue = () => {
-        this.props.updateValue(this.state.value);
-    }
-
     clickSuggestion = (e) => {
         let query = e.target.dataset.query;
         console.log(query);
@@ -105,8 +102,7 @@ class Searcher extends Component {
         .photos(this.state.value)
         .then(toJson)
         .then((JSON) => {
-            this.setState({results: JSON.results})
-            this.updateValue(); 
+            this.setState({results: JSON.results}) 
             JSON.results.map((res) => {
                 res.tags.map((tag) => {
                     
@@ -120,12 +116,6 @@ class Searcher extends Component {
             
             this.filtrSuggestions();
         })
-    }
-
-    handleInputChange = () => {
-            this.setState({
-                value: this.search.value
-            })
     }          
 
     handleInputChange = () => {
@@ -135,7 +125,6 @@ class Searcher extends Component {
           }, () => {
               if (this.state.value && this.state.value.length >= 3) {
                   this.getPhoto();
-                //   this.getCollections();
               } else if (!this.state.value) return
           })
     }
@@ -175,17 +164,6 @@ class Searcher extends Component {
     }
 
 
-    clickTag = (e) => {
-        let tag = e.target.innerText;
-        this.setState({value: tag});
-
-        this.searchPhoto();
-        this.setState({fieldempty: true})
-
-        console.log(e)
-    }
-
-
 
     render() {
         let sugg = this.state.suggestions.length;
@@ -217,20 +195,7 @@ class Searcher extends Component {
 
                 </Form>
 
-                <div className="box">
-                    <button className="sugg" data-name="purple" onClick={this.clickTag}>
-                            Purple
-                    </button>
-                    <button className="sugg" data-name="yellow" onClick={this.clickTag}>
-                            Yellow
-                    </button>
-                    <button className="sugg" onClick={this.clickTag}>
-                            Green
-                    </button>
-                    <button className="sugg" onClick={this.clickTag}>
-                            Red
-                    </button>
-                </div>
+                <Tags setData={this.props.updateData} setStatus = {this.props.updateStatus}/>
 
                 {this.props.searchStatus &&
                     <Redirect to={{

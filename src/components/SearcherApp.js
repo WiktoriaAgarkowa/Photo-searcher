@@ -18,26 +18,12 @@ const unsplash = new Unsplash({
 })
 
 
-const Heading = styled.h1`
-color: #f08080;
-font-size: 40px;
-`;
-
-
-const Text = styled.p`
-color: #f08080;
-font-size: 15px;
-`;
-
-
 class SearcherApp extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            query: '',
             result: [],
             search: false,
-            tagValue: '',
             referrer: null,
         }
     }
@@ -59,9 +45,6 @@ class SearcherApp extends Component {
         });
     }
 
-    setQuery = (value) => {
-        this.setState({query: value})
-    }
 
     render() {
         let start = this.state.search;
@@ -82,16 +65,15 @@ class SearcherApp extends Component {
                 <Link className="logo" onClick={() => {this.setStatus(false)}} to='/'>Inspirator |</Link>
                 <>
                      <div className = {searcher}>
-                            <Heading className={className}>Photo Searcher</Heading>
-                            <Text className={className}>Project made with Unsplash API
-                            </Text>
+                            <h1 className={className}>Photo Searcher</h1>
+                            <p className={className, 'text'}>Project made with Unsplash API
+                            </p>
                             <Searcher
                             updateData={this.setData}
-                            updateValue={this.setQuery}
                             updateStatus = {this.setStatus}
                             searchStatus = {this.state.search}/>
                      </div>
-                 </>
+                </>
 
                 </div>
 

@@ -62,6 +62,16 @@
     padding: 60px 40px;
 }
 
+.heading {
+  color: #f08080;
+  font-size: 40px;
+}
+
+.text {
+  color: #f08080;
+  font-size: 15px;
+}
+
 @keyframes resize {
     0%, 100% {
         width: 500px;

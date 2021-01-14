@@ -1,89 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import styled from 'styled-components';
-
-
-const Container = styled.div`
-display: grid;
-grid-column-gap: 24px;
-grid-template-columns: repeat(3, auto);
-width: 70%;
-margin: auto;
-position: relative;
-`;
-
-const Item = styled.div`
-margin-bottom: 1rem;
-display: flex;
-
-&:hover {
-    cursor: pointer;
-}
-`;
-
-const Image = styled.img`
-flex: 100%;
-object-fit: cover;
-width: 100%;
-margin-top: 1rem;
-border-radius: 10px;
-
-`;
-
-const Popup = styled.div`
-position: absolute;
-width: 40%;
-top: 40%;
-left: 50%;
-transform: translate(-50%, -60%);
-background-color: #fff;
-border: 0.5px solid #aaa;
-`;
-
-const ImageFull = styled.img`
-position: relative;
-object-fit: cover;
-width: 100%;
-padding: 40px;
-`;
-
-const ContainerFlex = styled.div`
-display: flex;
-width: 100%;
-align-items: center;
-padding: 20px 40px;
-`;
-
-const Avatar = styled.img`
-border-radius: 50%;
-padding-right: 10px;
-`;
-
-const Close = styled.p`
-font-weight: 800;
-margin-left: auto;
-font-size: 25px;
-
-&:hover {
-    cursor: pointer;
-    color: #aaa;
-}
-`;
-
-const Location = styled.div`
-padding: 0 0 20px 40px;
-`;
-
-const NoRes = styled.h1`
-font-size: 20px;
-text-align: center;
-`;
-
-const ContainerSearcher = styled.div`
-width: 70%;
-margin: auto;
-height: 200px;
-padding-top: 20px;
-`;
+import './Results.css';
 
 
 const Results = (props) => {
@@ -118,48 +34,48 @@ const Results = (props) => {
 
     return(
         <>
-            <ContainerSearcher>
+            <div className='container_searcher'>
                    
-            </ContainerSearcher>
+            </div>
                 
-            <Container >
+            <div className='container'>
                 
                 {props.allData.map((pic) => (
 
-                    <Item key={pic.id}>
+                    <div className='item' key={pic.id}>
 
-                        <Image key={pic.id} 
+                        <img className='image' key={pic.id} 
                         src={pic.urls.full} 
                         onClick={(pic)=> openWindow(pic)} 
                         data-username={pic.user.first_name} 
                         data-location={pic.user.location} 
                         data-avatar={pic.user.profile_image.medium}
                         data-link={pic.links.download}>
-                        </Image>
+                        </img>
 
-                    </Item>
+                    </div>
                     
                 ))}
 
-                {click && <Popup>
+                {click && <div className='popup'>
 
-                        <ContainerFlex>
-                            <Avatar src={avatar}></Avatar>
+                        <div className='container_flex'>
+                            <img className='avatar' src={avatar}></img>
                             <p>{user}</p>
-                            <Close onClick={closeWindow}>X</Close>
-                        </ContainerFlex>
-                         <ImageFull src={popup}></ImageFull> 
-                         <Location>
+                            <p className='close' onClick={closeWindow}>X</p>
+                        </div>
+                         <img className='image_full' src={popup}></img> 
+                         <div className='location'>
                             <p>{location}</p>
                             <a download='' href={link} target='_blank'>Download</a>
-                         </Location>
+                         </div>
 
-                </Popup>}
-            </Container>
+                </div>}
+            </div>
 
             {props.allData.length === 0 && props.searchState && 
-                    <NoRes>No results :(</NoRes>
-                }
+                    <h1 className='no_res'>No results :(</h1>
+            }
 
 
         </>
