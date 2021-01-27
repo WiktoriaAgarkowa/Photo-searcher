@@ -72,6 +72,15 @@
   font-size: 15px;
 }
 
+@media (max-width:970px) {
+  .logo {
+    position: relative;
+    left: 40%;
+    margin: 20px 0;
+    z-index: 10;
+  }
+}
+
 @keyframes resize {
     0%, 100% {
         width: 500px;
@@ -130,4 +139,4 @@
         margin-left: -2.5em; 
     }  
       
-  }
+}

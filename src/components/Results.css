@@ -80,3 +80,20 @@ height: 200px;
 padding-top: 20px;    
 }
 
+@media (max-width:970px) {
+    .container_results {
+        grid-template-columns: repeat(2, auto);
+        width: 70%;
+    }
+
+    .popup {
+        position: absolute;
+        width: 120%;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -60%);
+        background-color: #fff;
+        border: 0.5px solid #aaa;
+        }
+}
+

@@ -20,3 +20,11 @@
 .sugg:focus {
     outline: none;;
 }
+
+@media (max-width:970px) {
+    .sugg {
+        padding: 10px 20px;
+        border-radius: 20px;
+        flex-basis: 50%;
+    }
+}
