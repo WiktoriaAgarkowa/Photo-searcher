@@ -1,4 +1,4 @@
-.container {
+.container_results {
 display: grid;
 grid-column-gap: 24px;
 grid-template-columns: repeat(3, auto);

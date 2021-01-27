@@ -38,7 +38,7 @@ const Results = (props) => {
                    
             </div>
                 
-            <div className='container'>
+            <div className='container_results'>
                 
                 {props.allData.map((pic) => (
 
